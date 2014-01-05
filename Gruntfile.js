@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: '<%= meta.componentPath %>',
-						src: ['administrator/**','frontend/**','libraries/**','thumbs/**','uploadparts/**','uploads/**','README.md'],
+						src: ['administrator/**','frontend/**','libraries/**','media/**','thumbs/**','uploadparts/**','uploads/**','README.md','install.script.php'],
 						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
 					},
 					{
@@ -90,8 +90,8 @@ module.exports = function(grunt) {
 			copy = grunt.config.get('copy') || {},
 			langs = grunt.config.get('meta.langs');
 		
+		// add language files
 		langs.forEach(function(lang){
-			//add language files
 			copy.language.files.push ({
 				expand: true,
 				cwd: '<%= meta.tempPath %>/<%= meta.languagePath %>administrator/language/' + lang + '/',
@@ -153,8 +153,8 @@ module.exports = function(grunt) {
 				parent_dir = dir.replace('/' + plugin, '').replace(/\\/g,'/').replace( /.*\//, '' ),
 				langfileBase = '.plg_' + parent_dir + '_' + plugin;
 				
+			// add language files
 			langs.forEach(function(lang){
-				//add language files
 				copy.language.files.push ({
 					expand: true,
 					cwd: '<%= meta.tempPath %>/<%= meta.languagePath %>administrator/language/' + lang + '/',
@@ -211,7 +211,7 @@ module.exports = function(grunt) {
 			// skip admindir itself
 			if (module == 'administrator') return true;
 			
-			//add language files
+			// add language files
 			langs.forEach(function(lang){
 				copy.language.files.push ({
 					expand: true,
