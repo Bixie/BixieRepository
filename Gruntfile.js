@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 					},
 					{
 						expand: true,
-						cwd: '<%= meta.tempPath %>/<%= meta.componentPath %>administrator/',
+						cwd: '<%= meta.componentPath %>administrator/',
 						src: ['bixprintshop.xml'],
 						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
 					},
@@ -88,20 +88,20 @@ module.exports = function(grunt) {
 		// get current configs
 		var compress = grunt.config.get('compress') || {},
 			copy = grunt.config.get('copy') || {},
-			langs = '<%= meta.langs %>';
+			langs = grunt.config.get('meta.langs');
 		
 		langs.forEach(function(lang){
 			//add language files
 			copy.language.files.push ({
 				expand: true,
 				cwd: '<%= meta.tempPath %>/<%= meta.languagePath %>administrator/language/' + lang + '/',
-				src: [lang + '<%= pkg.name %>.ini', lang + '<%= pkg.name %>.sys.ini'],
+				src: [lang + '.<%= pkg.name %>.ini', lang + '.<%= pkg.name %>.sys.ini'],
 				dest:'<%= meta.tempPath %>/<%= meta.componentPath %>administrator/language/' + lang + '/'
 			});
 			copy.language.files.push ({
 				expand: true,
 				cwd: '<%= meta.tempPath %>/<%= meta.languagePath %>language/' + lang + '/',
-				src: [lang + '<%= pkg.name %>.ini'],
+				src: [lang + '.<%= pkg.name %>.ini'],
 				dest:'<%= meta.tempPath %>/<%= meta.componentPath %>frontend/language/' + lang + '/'
 			});
 		});
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 						,'bixprintshop_mail','bixprintshop_order','bixprintshop_vervoer'
 						,'system','content','search','user'],
 			root = [],
-			langs = '<%= meta.langs %>';
+			langs = grunt.config.get('meta.langs');
 		
 		// get plugins rootdirs
 		baseDirs.forEach(function(baseDir){
@@ -191,7 +191,7 @@ module.exports = function(grunt) {
 		// get current configs
 		var compress = grunt.config.get('compress') || {},
 			copy = grunt.config.get('copy') || {},
-			langs = '<%= meta.langs %>',
+			langs = grunt.config.get('meta.langs'),
 			// get modules rootdirs
 			root = [
 				grunt.template.process('<%= meta.tempPath %>/<%= meta.modulePath %>/administrator/') + '*',
@@ -202,7 +202,6 @@ module.exports = function(grunt) {
 		grunt.file.expand(root).forEach(function(dir){
 			// skip files
 			if (!grunt.file.isDir(dir)) return true;
-// console.log(dir);		
 
 			var module = dir.replace(/\\/g,'/').replace( /.*\//, '' ),
 				parent_dir = dir.replace('/' + module, '').replace(/\\/g,'/').replace( /.*\//, '' ),
