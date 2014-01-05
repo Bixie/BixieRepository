@@ -1,0 +1,17 @@
+{
+  "name": "com_bixprintshop",
+  "version": "1.0.5",
+  "description": "Grunt voor Printshop Repositories",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthijs Alles - Bixie",
+  "license": "GNU/GPL",
+  "devDependencies": {
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt": "~0.4.2",
+    "grunt-contrib-compress": "~0.5.3"
+  }
+}
