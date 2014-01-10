@@ -1,6 +1,6 @@
 {
   "name": "com_bixprintshop",
-  "version": "1.0.5",
+  "version": "1.0.6-dev",
   "description": "Grunt voor Printshop Repositories",
   "main": "index.js",
   "scripts": {
