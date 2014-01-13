@@ -14,8 +14,25 @@ module.exports = function(grunt) {
 			langs: ['nl-NL']
 		},
 		copy: {
+			// copy component folder to temp folder
+			component: {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= meta.componentPath %>',
+						src: ['administrator/**','frontend/**','libraries/**','media/**','thumbs/**','uploadparts/**','uploads/**','README.md','install.script.php'],
+						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
+					},
+					{
+						expand: true,
+						cwd: '<%= meta.componentPath %>administrator/',
+						src: ['bixprintshop.xml','install.script.php'],
+						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
+					}
+				]
+			},
 			// copy repofolders to temp folder
-			temp: {
+			addons: {
 				files: [
 					{
 						expand: true,
@@ -28,19 +45,12 @@ module.exports = function(grunt) {
 						cwd: '<%= meta.modulePath %>',
 						src: ['**'],
 						dest: '<%= meta.tempPath %>/<%= meta.modulePath %>'
-					},
-					{
-						expand: true,
-						cwd: '<%= meta.componentPath %>',
-						src: ['administrator/**','frontend/**','libraries/**','media/**','thumbs/**','uploadparts/**','uploads/**','README.md','install.script.php'],
-						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
-					},
-					{
-						expand: true,
-						cwd: '<%= meta.componentPath %>administrator/',
-						src: ['bixprintshop.xml'],
-						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
-					},
+					}
+				]
+			},
+			// copy repofolders to temp folder
+			langsource: {
+				files: [
 					{
 						expand: true,
 						cwd: '<%= meta.languagePath %>',
@@ -55,9 +65,9 @@ module.exports = function(grunt) {
 			}
 		},
 		compress: {},
-		// remove temporal build files
+		// remove temporal files
 		clean: {
-			xml: ['<%= meta.tempPath %>/<%= meta.componentPath %>administrator/bixprintshop.xml'],
+			installs: ['<%= meta.tempPath %>/<%= meta.componentPath %>administrator/bixprintshop.xml','<%= meta.tempPath %>/<%= meta.componentPath %>administrator/install.script.php'],
 			temp: ['<%= meta.tempPath %>/**/*']
 		}
 	});
@@ -72,16 +82,35 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', 'Prepares Printshop Packages', function() {
 
 		// execute in order
-		grunt.task.run('copy:temp');
+		grunt.task.run('copy:component');
+		grunt.task.run('copy:addons');
+		grunt.task.run('copy:langsource');
 		grunt.task.run('process_component');
-		grunt.task.run('clean:xml');
+		grunt.task.run('clean:installs');
 		grunt.task.run('process_plugins');
 		grunt.task.run('process_modules');
 		grunt.task.run('copy:language');
 		grunt.task.run('compress');
 		grunt.task.run('clean:temp');
 	});
-	
+	grunt.registerTask('component', 'Prepares Printshop Component only', function() {
+		grunt.task.run('copy:component');
+		grunt.task.run('copy:langsource');
+		grunt.task.run('process_component');
+		grunt.task.run('clean:installs');
+		grunt.task.run('copy:language');
+		grunt.task.run('compress');
+		grunt.task.run('clean:temp');
+	});
+	grunt.registerTask('addons', 'Prepares Printshop Addons only', function() {
+		grunt.task.run('copy:addons');
+		grunt.task.run('copy:langsource');
+		grunt.task.run('process_plugins');
+		grunt.task.run('process_modules');
+		grunt.task.run('copy:language');
+		grunt.task.run('compress');
+		grunt.task.run('clean:temp');
+	});
 	//process_component task
 	grunt.registerTask('process_component', 'pack comp dirs, copy xml', function() {
 
