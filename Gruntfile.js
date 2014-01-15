@@ -197,7 +197,7 @@ module.exports = function(grunt) {
 			});
 			
 			// set the compress config for this plugin
-			compress[plugin] = {
+			compress[parent_dir+plugin] = {
 				options: {
 					archive: '<%= meta.buildPath %>/plugins/' + parent_dir + '/' + parent_dir + '-' + plugin + '_<%= pkg.version %>.zip',
 					mode: 'zip'
