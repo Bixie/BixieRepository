@@ -1,0 +1,90 @@
+<p style="margin-top: 5px;color: #00099;display: block;font-size: 20px;font-weight: bold;line-height: 100%;margin-bottom: 10px;text-align: center;">Bevestiging bestelling</p>
+
+<p>{aanhef},</p>
+
+<p>Hartelijk dank voor uw bestelling bij {site_naam}. Hieronder vindt u ter controle de details van uw bestelling. Voor uw eigen administratie is de factuur als bijlage meegezonden.</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="font-size: 12px; line-height: 26px;" width="650">
+	<tbody>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;" width="174">
+				Bestelnummer:</td>
+			<td style="border-collapse: collapse;" width="276">
+				{bestelID}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Jouw referentie:</td>
+			<td style="border-collapse: collapse;">
+				{factuurReferentie}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Actuele bestelstatus:</td>
+			<td style="border-collapse: collapse;">
+				{bestelStatusNaam}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Betaalmethode:</td>
+			<td style="border-collapse: collapse;">
+				{betaalMethode}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse;">
+				<strong>Factuuradres:</strong><br />
+				{factuuradres}</td>
+			<td style="border-collapse: collapse;">
+				<strong>Leveradres:</strong><br />
+				{verzendadres}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				&nbsp;</td>
+			<td style="border-collapse: collapse;">
+				&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Orderinformatie:</td>
+			<td style="border-collapse: collapse;">
+				&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-collapse: collapse;">
+				{orderDetails}</td>
+		</tr>
+	</tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" style="font-size: 12px; line-height: 26px;" width="300">
+	<tbody>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;" width="172">
+				Totaalbedrag excl. BTW</td>
+			<td align="right" style="border-collapse: collapse;" width="278">
+				{ordersNetto}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Administratiekosten</td>
+			<td align="right" style="border-collapse: collapse;">
+				{administratiePrijs}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Korting</td>
+			<td align="right" style="border-collapse: collapse;">
+				{totaalKorting}</td>
+		</tr>
+		<tr>
+			<td class="titel" style="border-collapse: collapse; font-weight: bold;">
+				Totaalbedrag incl. BTW</td>
+			<td align="right" style="border-collapse: collapse;">
+				<strong>{totaalBruto}</strong></td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	Als u nog vragen heeft kunt u contact opnemen met onze klantenservice.<p/>
+
