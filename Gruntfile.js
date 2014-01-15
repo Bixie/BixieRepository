@@ -67,7 +67,11 @@ module.exports = function(grunt) {
 		compress: {},
 		// remove temporal files
 		clean: {
-			installs: ['<%= meta.tempPath %>/<%= meta.componentPath %>administrator/bixprintshop.xml','<%= meta.tempPath %>/<%= meta.componentPath %>administrator/install.script.php'],
+			unpacked: [
+				'<%= meta.tempPath %>/<%= meta.componentPath %>administrator/bixprintshop.xml',
+				'<%= meta.tempPath %>/<%= meta.componentPath %>administrator/install.script.php',
+				'<%= meta.tempPath %>/<%= meta.componentPath %>frontend/assets/css/*_style.css'
+			],
 			temp: ['<%= meta.tempPath %>/**/*']
 		}
 	});
@@ -86,7 +90,7 @@ module.exports = function(grunt) {
 		grunt.task.run('copy:addons');
 		grunt.task.run('copy:langsource');
 		grunt.task.run('process_component');
-		grunt.task.run('clean:installs');
+		grunt.task.run('clean:unpacked');
 		grunt.task.run('process_plugins');
 		grunt.task.run('process_modules');
 		grunt.task.run('copy:language');
@@ -97,7 +101,7 @@ module.exports = function(grunt) {
 		grunt.task.run('copy:component');
 		grunt.task.run('copy:langsource');
 		grunt.task.run('process_component');
-		grunt.task.run('clean:installs');
+		grunt.task.run('clean:unpacked');
 		grunt.task.run('copy:language');
 		grunt.task.run('compress');
 		grunt.task.run('clean:temp');
