@@ -7,7 +7,7 @@
  */
 class bixConfig {
 	public $allowedIPs = array(
-		'93.186.181.195', //virtueupload.nl
+		'93.186.181.195', //dwc server
 		'77.175.3.154' //bixie home
 	);
 	public $downloadPath = '/public/documents';
