@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 			modulePath: 'printshop-modules/',
 			componentPath: 'printshop-component/',
 			languagePath: 'printshop-language/',
+			overridePath: 'template-overrides/',
 			buildPath: 'build',
 			tempPath: 'temp',
 			langs: ['nl-NL']
@@ -20,13 +21,13 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: '<%= meta.componentPath %>',
-						src: ['administrator/**','frontend/**','libraries/**','media/**','thumbs/**','uploadparts/**','uploads/**','README.md','install.script.php'],
+						src: ['administrator/**','frontend/**','libraries/**','media/**','thumbs/**','uploadparts/**','uploads/**'],
 						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
 					},
 					{
 						expand: true,
 						cwd: '<%= meta.componentPath %>administrator/',
-						src: ['bixprintshop.xml','install.script.php'],
+						src: ['bixprintshop.xml','install.script.php','README.md'],
 						dest: '<%= meta.tempPath %>/<%= meta.componentPath %>'
 					}
 				]
@@ -58,6 +59,21 @@ module.exports = function(grunt) {
 						dest: '<%= meta.tempPath %>/<%= meta.languagePath %>'
 					}
 				]
+			},
+			// copy component folder to temp folder
+			templates: {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= meta.componentPath %>frontend/views/',
+						src: ['**'],
+						dest: '<%= meta.tempPath %>/<%= meta.overridePath %>'
+					}
+				]
+			},
+			// copy modules folder to temp folder
+			overrides: {
+				files: []
 			},
 			// copy modules folder to temp folder
 			language: {
@@ -114,6 +130,35 @@ module.exports = function(grunt) {
 		grunt.task.run('copy:language');
 		grunt.task.run('compress');
 		grunt.task.run('clean:temp');
+	});
+	grunt.registerTask('overrides', 'Copies core-template files to overrides repo', function() {
+		grunt.task.run('copy:templates');
+		// get current configs
+		var copy = grunt.config.get('copy') || {},
+			root = [grunt.template.process('<%= meta.tempPath %>/<%= meta.overridePath %>*')];
+		
+
+		// iterate trough view directories
+		grunt.file.expand(root).forEach(function(dir){
+		console.log(dir);
+			// skip files
+			if (!grunt.file.isDir(dir)) return true;
+
+			var view = dir.replace(/\\/g,'/').replace( /.*\//, '' );
+				
+			copy.overrides.files.push ({
+				expand: true,
+				cwd: dir + '/tmpl/',
+				src: ['*.php'],
+				dest: '<%= meta.overridePath %>/' + view + '/'
+			});
+			
+		});
+		// save the new configs
+		grunt.config.set('copy', copy);
+		//run&clean it
+		grunt.task.run('copy:overrides');
+//		grunt.task.run('clean:temp');
 	});
 	//process_component task
 	grunt.registerTask('process_component', 'pack comp dirs, copy xml', function() {
